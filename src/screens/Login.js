@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {
     Text,
-    View,
     Button,
     TextInput,
+    StyleSheet,
     ScrollView,
     ActivityIndicator
 } from 'react-native';
@@ -57,8 +57,8 @@ export default class Login extends Component {
 
     render() {
         return (
-            <ScrollView style={{padding: 20}}>
-				<Text style={{fontSize: 27}}>Login</Text>
+            <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps='handled'>
+				<Text style={styles.titulo}>Login</Text>
 				<TextInput
 					ref={component => this._username = component}
 					placeholder='Username' 
@@ -76,15 +76,14 @@ export default class Login extends Component {
 				/>
 				{!!this.state.message && (
 					<Text
-						style={{fontSize: 14, color: 'red', padding: 5}}>
+						style={styles.message}>
 						{this.state.message}
 					</Text>
 				)}
 				{this.state.isLoggingIn && 
                   <ActivityIndicator />
                 }
-				<View style={{margin:7}} />
-				<Button 
+				<Button style={{marginTop:10}}
 					disabled={this.state.isLoggingIn||!this.state.username||!this.state.password}
 		      		onPress={this._userLogin}
 		      		title="Submit"
@@ -93,3 +92,22 @@ export default class Login extends Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'stretch',
+      padding: 20,
+    },
+    titulo: {
+      fontSize: 28,
+      textAlign: 'center',
+      margin: 10,
+    },
+    messages: {
+        fontSize: 14, 
+        color: 'red', 
+        padding: 5
+    },
+  });
